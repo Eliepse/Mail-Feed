@@ -1,0 +1,47 @@
+html, body {
+	padding: 0;
+	margin: 0;
+	background: #f3f3f3;
+}
+
+
+.container {
+	margin: auto;
+	width: 100%;
+	max-width: 840px;
+}
+
+
+.mail {
+	width: 100%;
+	margin-top: 30px;
+	padding: 5px 20px;
+	background-color: #fff;
+}
+
+.mail-header {
+	font-family: sans-serif;
+}
+
+.mail-info {
+	font-size: 16px;
+}
+
+.mail-info-date {
+	font-size: 14px;
+	font-style: italic;
+}
+
+.mail-info-from {
+	font-weight: bold;
+}
+
+.mail-title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.mail-content {
+	margin-top: 15px;
+	width: 100%;
+}

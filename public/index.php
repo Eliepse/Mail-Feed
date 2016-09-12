@@ -12,13 +12,47 @@ $_server = include "../config/server.php";
 $mailbox = new PhpImap\Mailbox($_server['server'], $_server['username'], $_server['password']);
 
 // Read all messaged into an array:
-$mailsIds = $mailbox->searchMailbox('ALL');
-if(!$mailsIds) {
-	die('Mailbox is empty');
+$mailsIds = $mailbox->searchMailbox('OLD');
+if (!$mailsIds) {
+	$mailsIds = [];
 }
 
-// Get the first message and save its attachment(s) to disk:
-$mail = $mailbox->getMail($mailsIds[0]);
+?>
 
-echo "<h2>" . $mail->subject . "</h2><br/>";
-echo $mail->textHtml;
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+
+<div class="container">
+	
+	<?php
+	
+	foreach ($mailsIds as $mailID) {
+		
+		$mail = $mailbox->getMail($mailsIds[0]);
+		?>
+		
+		<div class="mail">
+			
+			<div class="mail-header">
+				<p class="mail-info">Le <span class="mail-info-date"><?= date_format(new DateTime($mail->date), "d-m-Y à H:i:s") ?></span> par <span class="mail-info-from"></span><?= $mail->fromName ?></p>
+				<h2 class="mail-title"><?= $mail->subject ?></h2>
+			</div>
+			
+			<div class="mail-content">
+				<?= $mail->textHtml ?>
+			</div>
+		
+		</div>
+		
+		<?php
+	}
+	?>
+
+</div>
+
+</body>
+</html>
+
