@@ -16,6 +16,7 @@ $mailsIds = $mailbox->searchMailbox('OLD');
 if (!$mailsIds) {
 	$mailsIds = [];
 }
+$mailsIds = array_reverse($mailsIds);
 
 ?>
 
@@ -26,23 +27,25 @@ if (!$mailsIds) {
 <body>
 
 <div class="container">
-	
+
 	<?php
-	
+
 	foreach ($mailsIds as $mailID) {
-		
-		$mail = $mailbox->getMail($mailsIds[0]);
+
+		$mail = $mailbox->getMail($mailID);
 		?>
 		
-		<div class="mail">
+		<div class="mail" id="<?= $mail->id ?>">
 			
 			<div class="mail-header">
 				<p class="mail-info">Le <span class="mail-info-date"><?= date_format(new DateTime($mail->date), "d-m-Y à H:i:s") ?></span> par <span class="mail-info-from"></span><?= $mail->fromName ?></p>
-				<h2 class="mail-title"><?= $mail->subject ?></h2>
+				<h2 class="mail-title"><?= removeEmail($mail->subject, $_server); ?></h2>
 			</div>
 			
 			<div class="mail-content">
-				<?= $mail->textHtml ?>
+				<?php
+				echo escapeEmail($mail, $_server);
+				?>
 			</div>
 		
 		</div>
