@@ -2,11 +2,11 @@
 
 require '../vendor/autoload.php';
 
-use PhpImap\Mailbox as ImapMailbox;
-use PhpImap\IncomingMail;
-use PhpImap\IncomingMailAttachment;
-
 $_server = include "../config/server.php";
+include_once "../App/escape-email.php";
+
+$hide_email = 'noemail@nodomain.bop';
+$hide_url = "no-url-here";
 
 // 4. argument is the directory into which attachments are to be saved:
 $mailbox = new PhpImap\Mailbox($_server['server'], $_server['username'], $_server['password']);

@@ -9,6 +9,7 @@
         }
     ],
     "require": {
-        "php-imap/php-imap": "^2.0"
+        "php-imap/php-imap": "^2.0",
+        "sunra/php-simple-html-dom-parser": "^1.5"
     }
 }
