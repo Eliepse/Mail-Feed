@@ -1,0 +1,12 @@
+{
+    "name": "eliepse/mail-feed",
+    "description": "Un outil simple pour afficher les mails d'un compte",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Elie Meignan",
+            "email": "contact@eliepse.fr"
+        }
+    ],
+    "require": {}
+}
