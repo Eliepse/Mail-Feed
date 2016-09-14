@@ -25,11 +25,12 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 
 		// On récupère la liste des mails en cache
 		$last_mails = json_decode($cachefile->getData());
+		$deleted = $mailbox->searchMailbox('DELETED');
 
 		// On vérifie s'ils sont expirés
 		foreach ($last_mails as $key => $id) {
 
-			if ($mail_cache->isCacheEntryExpired($id)) {
+			if ($mail_cache->isCacheEntryExpired($id) || !array_search($id, $deleted)) {
 
 				$mail_cache->remove($id);
 				unset($last_mails[ $key ]);
@@ -65,16 +66,6 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 }, 3600 * 3, Cache::$_no_delete);
 
 $mail_list = json_decode($mail_list);
-
-// 4. argument is the directory into which attachments are to be saved:
-//$mailbox = new Mailbox($_server->server, $_server->username, $_server->password);
-
-// Read all messaged into an array:
-//$mailsIds = $mailbox->searchMailbox('ALL');
-//if (!$mailsIds) {
-//	$mailsIds = [];
-//}
-//$mailsIds = array_reverse($mailsIds);
 
 ?>
 
