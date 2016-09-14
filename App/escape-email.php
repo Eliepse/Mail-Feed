@@ -1,7 +1,14 @@
 <?php
+use Eliepse\Config\Config;
+use PhpImap\IncomingMail;
 use Sunra\PhpSimple\HtmlDomParser;
 
-function escapeEmail(\PhpImap\IncomingMail $mail, array $_server)
+/**
+ * @param IncomingMail $mail
+ * @param Config $_server
+ * @return mixed
+ */
+function escapeEmail(IncomingMail $mail, Config $_server)
 {
 
 	$id = $mail->id;
@@ -23,24 +30,24 @@ function escapeEmail(\PhpImap\IncomingMail $mail, array $_server)
 
 
 	// on masque l'adress email
-	$n_content = removeEmail($n_content, $_server);
+	$n_content = removeEmail($n_content, $_server->username);
 
-	$n_content = preg_replace_callback("#src=\"([^\"]*)\"#i", function ($matches) use ($id) {
+	/*$n_content = preg_replace_callback("#src=\"([^\"]*)\"#i", function ($matches) use ($id) {
 
 		if (preg_match("/src=\"\S+\.(jpe?g|png|gif)[;?:@=&a-zA-Z0-9]*\"/i", $matches[0]))
 			return $matches[0];
 		else
 			return "src='#$id'";
 
-	}, $n_content);
+	}, $n_content);*/
 
-	$n_content = preg_replace("#href=\"\S+\"#i", "href=\"#$id\"", $n_content);
+//	$n_content = preg_replace("#href=\"\S+\"#i", "href=\"#$id\"", $n_content);
 
 	return $n_content;
 
 }
 
-function removeEmail($content, array $_server)
+function removeEmail($content, $email)
 {
-	return str_replace($_server['username'], '**email-hidden**', $content);
+	return str_replace($email, '**email-hidden**', $content);
 }
