@@ -12,11 +12,12 @@ include_once "../App/escape-email.php";
 
 
 $_server = ConfigFactory::getConfig('server');
+$_global = ConfigFactory::getConfig('global');
 $cache = new Cache();
 $mail_cache = new MailCache();
 $mailbox = null;
 
-$mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) use ($_server, $mail_cache, $mailbox) {
+$mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) use ($_server, $mail_cache, $mailbox, $_global) {
 
 	$mailbox = new Mailbox($_server->server, $_server->username, $_server->password);
 
@@ -52,7 +53,7 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 
 	} else {
 
-		$date = new DateTime('@' . (time() - 604800));
+		$date = new DateTime('@' . (time() - $_global->get('mail-expiration')));
 		$str_date = $date->format('j F Y');
 		$imap_query = "ALL SINCE \"$str_date\"";
 
@@ -63,7 +64,7 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 
 	return json_encode($mails);
 
-}, 3600 * 3, Cache::$_no_delete);
+}, $_global->get('mailbox-check-delay'), Cache::$_no_delete);
 
 $mail_list = json_decode($mail_list);
 
@@ -71,6 +72,7 @@ $mail_list = json_decode($mail_list);
 
 <html>
 <head>
+	<title><?= $_global->get('title') ?></title>
 	<link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>

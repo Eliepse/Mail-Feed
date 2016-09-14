@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4f7b0fb84adabc63044dd5e4b96e7f8",
+    "hash": "662998dc42ec74fe2a9c45661ce40e10",
     "content-hash": "be24d4dfe1f829da3b06d3030f6e20f5",
     "packages": [
         {
             "name": "eliepse/basic-cache",
-            "version": "0.2.0",
+            "version": "0.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eliepse/Basic-Cache.git",
-                "reference": "dad8e47087922a266007319e1d2e35a6e4c73859"
+                "reference": "1f5ed0e6404224fc1f93b62051d87a3b7777c7b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eliepse/Basic-Cache/zipball/dad8e47087922a266007319e1d2e35a6e4c73859",
-                "reference": "dad8e47087922a266007319e1d2e35a6e4c73859",
+                "url": "https://api.github.com/repos/Eliepse/Basic-Cache/zipball/1f5ed0e6404224fc1f93b62051d87a3b7777c7b0",
+                "reference": "1f5ed0e6404224fc1f93b62051d87a3b7777c7b0",
                 "shasum": ""
             },
             "require": {
@@ -41,10 +41,10 @@
             ],
             "description": "A very simple cache system",
             "support": {
-                "source": "https://github.com/Eliepse/Basic-Cache/tree/0.2.0",
+                "source": "https://github.com/Eliepse/Basic-Cache/tree/0.2.1",
                 "issues": "https://github.com/Eliepse/Basic-Cache/issues"
             },
-            "time": "2016-09-14 12:30:34"
+            "time": "2016-09-14 14:01:04"
         },
         {
             "name": "eliepse/config-manager",
