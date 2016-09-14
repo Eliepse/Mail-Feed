@@ -14,21 +14,24 @@ html, body {
 
 .mail {
 	width: 100%;
-	margin-top: 30px;
-	padding: 5px 20px;
+	margin: 30px 0 50px 0;
+	padding: 5px 0 25px 0;
+	box-sizing: border-box;
 	background-color: #fff;
 }
 
 .mail-header {
+	padding-bottom: 14px;
 	font-family: sans-serif;
+	color: #a0a0a0;
 }
 
 .mail-info {
-	font-size: 16px;
+	font-size: 14px;
 }
 
 .mail-info-date {
-	font-size: 14px;
+	font-size: 0.85em;
 	font-style: italic;
 }
 
@@ -37,11 +40,17 @@ html, body {
 }
 
 .mail-title {
-	font-size: 20px;
-	font-weight: bold;
+	font-size: 26px;
+	font-weight: normal;
+	color: #505050;
+	margin-bottom: 0px;
+}
+
+.mail-header,
+.mail-content {
+	margin: 0 20px;
 }
 
 .mail-content {
 	margin-top: 15px;
-	width: 100%;
 }
