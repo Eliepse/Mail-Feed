@@ -98,25 +98,36 @@ $mail_list = json_decode($mail_list);
 
 		?>
 		
-		<div class="mail" id="<?= $mail->id ?>">
+		<div class="mail mail--closed" id="<?= $mail->id ?>">
 			
 			<div class="mail-header">
 				<p class="mail-info">Le <span class="mail-info-date"><?= date_format(new DateTime($mail->date), "d-m-Y à H:i:s") ?></span> par <span
 						class="mail-info-from"><?= $mail->fromName ?></span></p>
 				<h2 class="mail-title"><?= removeEmail($mail->subject, $_server->username); ?></h2>
 			</div>
-			
+
+			<div class="actions">
+				<div class="action--close">Close news</div>
+			</div>
+
 			<div class="mail-content">
 				<?php
 				echo escapeEmail($mail, $_server);
 				?>
 			</div>
-		
+
+			<div class="actions">
+				<div class="action--open">Open news</div>
+				<div class="action--close">Close news</div>
+			</div>
+
 		</div>
 		
 		<?php
 	}
 	?>
+
+	<script src="script.js"></script>
 
 </div>
 

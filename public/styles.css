@@ -20,37 +20,71 @@ html, body {
 	background-color: #fff;
 }
 
+
+.mail--closed .mail-content,
+.mail--closed .action--close,
+.mail--opened .action--open {
+	display: none;
+}
+
+
+.mail--opened .mail-content {
+	display: block;
+}
+
+
 .mail-header {
 	padding-bottom: 14px;
 	font-family: sans-serif;
 	color: #a0a0a0;
 }
 
+
 .mail-info {
 	font-size: 14px;
 }
+
 
 .mail-info-date {
 	font-size: 0.85em;
 	font-style: italic;
 }
 
+
 .mail-info-from {
 	font-weight: bold;
 }
+
 
 .mail-title {
 	font-size: 26px;
 	font-weight: normal;
 	color: #505050;
 	margin-bottom: 0px;
+	line-height: 1.1em;
 }
+
 
 .mail-header,
 .mail-content {
 	margin: 0 20px;
 }
 
+
 .mail-content {
 	margin-top: 15px;
+}
+
+.actions {
+	text-align: center;
+	margin: 20px 15px 0 15px;
+	color: #c5c5c5;
+}
+
+.actions > div {
+	cursor: pointer;
+}
+
+.actions > div:hover {
+	color: #555555;
 }
