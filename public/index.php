@@ -26,12 +26,25 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 
 		// On récupère la liste des mails en cache
 		$last_mails = json_decode($cachefile->getData());
+
+		// On récupère la liste des mails supprimés
 		$deleted = $mailbox->searchMailbox('DELETED');
 
-		// On vérifie s'ils sont expirés
+		// On vérifie les mails supprimés
+		$deleted = array_intersect($deleted, $last_mails);
+
+		// On dé-cache les mails supprimés
+		foreach($deleted as $key => $id) {
+
+			$mail_cache->remove($id);
+			unset($last_mails[ $key ]);
+
+		}
+
+		// On vérifie si les mails en cache sont expirés
 		foreach ($last_mails as $key => $id) {
 
-			if ($mail_cache->isCacheEntryExpired($id) || !array_search($id, $deleted)) {
+			if ($mail_cache->isCacheEntryExpired($id, $_global->get('mail-expiration'))) {
 
 				$mail_cache->remove($id);
 				unset($last_mails[ $key ]);
@@ -40,27 +53,30 @@ $mail_list = $cache->readOrWrite('mail-list', function (CacheFile $cachefile) us
 
 		}
 
-		// On génère la recherche IMAP à effectuer
+		// On génère la recherche IMAP pour
+		// récupérer les mails du jour
 		$date = $cachefile->getModifiedAt();
-		$str_date = $date->format('j F Y');
+		$str_date = $date->format('d-M-Y G\:i');
 		$imap_query = "ALL SINCE \"$str_date\"";
 
-		// On récupère les nouveaux emails
+		// On effectue la recherche
 		$new_mails = array_reverse($mailbox->searchMailbox($imap_query));
 
-		// On ajoute les nouveaux emails
-		$mails = array_unshift($last_mails, $new_mails);
+		// On enlève les entrée du jour en double (déjà sauvegardée)
+		$new_mails = array_diff($new_mails, $last_mails);
+
+		// On ajoute les nouveaux emails à la liste
+		$mails = array_merge($new_mails, $last_mails);
 
 	} else {
 
 		$date = new DateTime('@' . (time() - $_global->get('mail-expiration')));
-		$str_date = $date->format('j F Y');
+		$str_date = $date->format('d-M-Y G\:i');
 		$imap_query = "ALL SINCE \"$str_date\"";
 
 		$mails = array_reverse($mailbox->searchMailbox($imap_query));
 
 	}
-
 
 	return json_encode($mails);
 
