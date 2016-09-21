@@ -28,18 +28,11 @@ function escapeEmail(IncomingMail $mail, Config $_server)
 
 	}
 
-
 	// on masque l'adress email
 	$n_content = removeEmail($n_content, $_server->username);
 
-	/*$n_content = preg_replace_callback("#src=\"([^\"]*)\"#i", function ($matches) use ($id) {
-
-		if (preg_match("/src=\"\S+\.(jpe?g|png|gif)[;?:@=&a-zA-Z0-9]*\"/i", $matches[0]))
-			return $matches[0];
-		else
-			return "src='#$id'";
-
-	}, $n_content);*/
+	// lazy loader
+	$n_content = str_replace(' src=', ' lazyl=', $n_content);
 
 	// No style embeded
 	$n_content = preg_replace('/<style[^>]*>[^>]+<\/style>/i', '', $n_content);

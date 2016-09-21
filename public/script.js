@@ -45,6 +45,23 @@ function addEventListener(el, eventName, handler) {
 	}
 }
 
+function activateSources(mailContent) {
+
+	var imgs = mailContent.querySelectorAll('img');
+
+	for(var i=0; i<imgs.length; i++) {
+
+		var img = imgs[i];
+		var src = img.getAttribute('lazyl');
+
+		if(src.length > 0) {
+			img.setAttribute('src', src);
+			img.setAttribute('lazyl', src);
+		}
+
+	}
+}
+
 
 ready(function () {
 
@@ -54,7 +71,10 @@ ready(function () {
 	for (var i = 0; i < closers.length; i++) {
 		var closer = closers[i];
 		addEventListener(closer, 'click', function () {
-			exchangeClass(this.parentNode.parentNode, 'mail--opened', 'mail--closed');
+
+			var mailNode = this.parentNode.parentNode;
+			exchangeClass(mailNode, 'mail--opened', 'mail--closed');
+
 		});
 	}
 
@@ -62,7 +82,13 @@ ready(function () {
 
 		var opener = openers[i];
 		addEventListener(opener, 'click', function () {
-			exchangeClass(this.parentNode.parentNode, 'mail--closed', 'mail--opened');
+
+			var mailNode = this.parentNode.parentNode;
+			var contentNode = mailNode.querySelector('.mail-content');
+
+			activateSources(contentNode);
+			exchangeClass(mailNode, 'mail--closed', 'mail--opened');
+
 		});
 
 	}
