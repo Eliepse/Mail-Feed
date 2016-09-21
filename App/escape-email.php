@@ -18,7 +18,7 @@ function escapeEmail(IncomingMail $mail, Config $_server)
 
 	$body = $html->getElementByTagName('body');
 
-	if(count($body) > 0) {
+	if($body) {
 
 		$n_content = $body->innerText();
 
@@ -41,7 +41,8 @@ function escapeEmail(IncomingMail $mail, Config $_server)
 
 	}, $n_content);*/
 
-//	$n_content = preg_replace("#href=\"\S+\"#i", "href=\"#$id\"", $n_content);
+	// No style embeded
+	$n_content = preg_replace('/<style[^>]*>[^>]+<\/style>/i', '', $n_content);
 
 	return $n_content;
 
